@@ -1,0 +1,82 @@
+{
+  "definition": {
+    "protocol": "https://tel-platform.online/schemas/contactInformation",
+    "published": true,
+    "types": {
+      "globalReader": {
+        "dataFormats": ["text/plain"]
+      },
+      "globalWriter": {
+        "dataFormats": ["text/plain"]
+      },
+      "preferredEmailAddress": {
+        "dataFormats": ["text/plain"]
+      },
+      "countryCode": {
+        "dataFormats": ["text/plain"]
+      },
+      "phoneNumber": {
+        "dataFormats": ["text/plain"]
+      },
+      "preferredMethodOfContact": {
+        "dataFormats": ["text/csv"]
+      }
+    },
+    "structure": {
+      "globalReader": {
+        "$role": true
+      },
+      "globalWriter": {
+        "$role": true
+      },
+      "preferredEmailAddress": {
+        "$actions": [
+          {
+            "role": "globalReader",
+            "can": ["read", "query", "subscribe"]
+          },
+          {
+            "role": "globalWriter",
+            "can": ["create"]
+          }
+        ]
+      },
+      "countryCode": {
+        "$actions": [
+          {
+            "role": "globalReader",
+            "can": ["read", "query", "subscribe"]
+          },
+          {
+            "role": "globalWriter",
+            "can": ["create"]
+          }
+        ]
+      },
+      "phoneNumber": {
+        "$actions": [
+          {
+            "role": "globalReader",
+            "can": ["read", "query", "subscribe"]
+          },
+          {
+            "role": "globalWriter",
+            "can": ["create"]
+          }
+        ]
+      },
+      "preferredMethodOfContact": {
+        "$actions": [
+          {
+            "role": "globalReader",
+            "can": ["read", "query", "subscribe"]
+          },
+          {
+            "role": "globalWriter",
+            "can": ["create"]
+          }
+        ]
+      }
+    }
+  }
+}
