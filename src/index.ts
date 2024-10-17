@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import http from "http";
 import protocolsRoute from "./routes/protocols";
 import recordsRoute from "./routes/records";
-import rolesRoute from "./routes/roles";
+import permissionsRoute from "./routes/permissions";
 
 dotenv.config();
 const app = express();
@@ -17,7 +17,7 @@ app.use(cors());
 
 app.use("/protocols", protocolsRoute);
 app.use("/records", recordsRoute);
-app.use("/roles", rolesRoute);
+app.use("/permissions", permissionsRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
