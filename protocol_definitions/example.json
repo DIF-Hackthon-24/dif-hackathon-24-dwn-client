@@ -1,82 +1,38 @@
 {
   "definition": {
-    "protocol": "https://tel-platform.online/schemas/contactInformation",
+    "protocol": "https://dif-hackathon-2024/schemas/travelerProfile",
     "published": true,
     "types": {
-      "globalReader": {
+      "roomType": {
         "dataFormats": ["text/plain"]
       },
-      "globalWriter": {
+      "smoking": {
         "dataFormats": ["text/plain"]
       },
-      "preferredEmailAddress": {
+      "roomTemp": {
         "dataFormats": ["text/plain"]
       },
-      "countryCode": {
+      "wheelchairAccessible": {
         "dataFormats": ["text/plain"]
       },
-      "phoneNumber": {
+      "breakfastIncluded": {
         "dataFormats": ["text/plain"]
       },
-      "preferredMethodOfContact": {
+      "diet": {
+        "dataFormats": ["text/csv"]
+      },
+      "allergies": {
         "dataFormats": ["text/csv"]
       }
     },
     "structure": {
-      "globalReader": {
-        "$role": true
-      },
-      "globalWriter": {
-        "$role": true
-      },
-      "preferredEmailAddress": {
-        "$actions": [
-          {
-            "role": "globalReader",
-            "can": ["read", "query", "subscribe"]
-          },
-          {
-            "role": "globalWriter",
-            "can": ["create"]
-          }
-        ]
-      },
-      "countryCode": {
-        "$actions": [
-          {
-            "role": "globalReader",
-            "can": ["read", "query", "subscribe"]
-          },
-          {
-            "role": "globalWriter",
-            "can": ["create"]
-          }
-        ]
-      },
-      "phoneNumber": {
-        "$actions": [
-          {
-            "role": "globalReader",
-            "can": ["read", "query", "subscribe"]
-          },
-          {
-            "role": "globalWriter",
-            "can": ["create"]
-          }
-        ]
-      },
-      "preferredMethodOfContact": {
-        "$actions": [
-          {
-            "role": "globalReader",
-            "can": ["read", "query", "subscribe"]
-          },
-          {
-            "role": "globalWriter",
-            "can": ["create"]
-          }
-        ]
-      }
+      "roomType": {},
+      "smoking": {},
+      "roomTemp": {},
+      "wheelchairAccessible": {},
+      "breakfastIncluded": {},
+      "diet": {},
+      "allergies": {}
     }
   }
 }

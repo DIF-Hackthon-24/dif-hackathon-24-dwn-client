@@ -55,43 +55,55 @@ recordsRoute.post("/create", async (req: any, res: any, next: any) => {
 
 recordsRoute.post("/read", async (req: any, res: any, next: any) => {
   console.log("/records/read endpoint hit");
-  const { protocol, protocolPath, keyInfo, target, protocolRole } = req.body;
+  const { protocol, protocolPaths, keyInfo, target, permissionGrantId } =
+    req.body;
   const signer: PrivateKeySigner = new PrivateKeySigner(keyInfo);
-  const recordsWriteOptions: RecordsReadOptions = {
-    filter: {
-      protocol: protocol,
-      protocolPath: protocolPath
-    },
-    protocolRole: protocolRole,
-    signer: signer
-  };
-  const recordsReadMessage: RecordsRead = await RecordsRead.create(
-    recordsWriteOptions
-  );
 
-  console.log("message", recordsReadMessage.message);
+  let readResponses: { [key: string]: {} } = {};
+  for (const path of protocolPaths) {
+    console.log(path);
+    const recordsWriteOptions: RecordsReadOptions = {
+      filter: {
+        protocol: protocol,
+        protocolPath: path
+      },
+      permissionGrantId: permissionGrantId,
+      signer: signer
+    };
+    const recordsReadMessage: RecordsRead = await RecordsRead.create(
+      recordsWriteOptions
+    );
 
-  const recordsReadResponse = await sendRpcRequest(recordsReadMessage, target);
+    console.log("message", recordsReadMessage.message);
 
-  const recordData = await recordsReadResponse.text();
+    const recordsReadResponse = await sendRpcRequest(
+      recordsReadMessage,
+      target
+    );
 
-  let readResponse;
-  // if there is a dwn-response header, then we have found a record
-  const dwnResponseHeader = recordsReadResponse.headers.get("dwn-response");
-  if (dwnResponseHeader) {
-    // dwn-response header has details about the record
-    readResponse = JSON.parse(dwnResponseHeader);
-    // recordData (response body) has the encodedData for the record
-    readResponse.result.reply.record.encodedData = recordData;
+    const recordData = await recordsReadResponse.text();
 
-    // otherwise, we have an error for the record read
-    // this will be in the response body, which we need to parse
-  } else {
-    readResponse = JSON.parse(recordData);
+    let readResponse;
+    // if there is a dwn-response header, then we have found a record
+    const dwnResponseHeader = recordsReadResponse.headers.get("dwn-response");
+    if (dwnResponseHeader) {
+      //   // dwn-response header has details about the record
+      //   readResponse = JSON.parse(dwnResponseHeader);
+      //   // recordData (response body) has the encodedData for the record
+      //   readResponse.result.reply.record.encodedData = recordData;
+      readResponses[path] = recordData;
+
+      // otherwise, we have an error for the record read
+      // this will be in the response body, which we need to parse
+    } else {
+      readResponse = JSON.parse(recordData);
+      readResponses[path] = readResponse.result.reply.status;
+    }
   }
 
+  res.send(readResponses);
+
   //   res.status(parsedResponse.status?.code || 200).response(parsedResponse);
-  res.send(readResponse);
 });
 
 // utility method to delete records during testing; records read expects only one record
