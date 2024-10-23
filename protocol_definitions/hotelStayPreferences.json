@@ -1,0 +1,34 @@
+{
+  "definition": {
+    "protocol": "https://dif-hackathon-2024/schemas/hotelStayPreferences",
+    "published": true,
+    "types": {
+      "roomTemp": {
+        "dataFormats": ["text/plain"]
+      },
+      "ordersRoomService": {
+        "dataFormats": ["text/plain"]
+      },
+      "numExtraPillows": {
+        "dataFormats": ["text/plain"]
+      },
+      "lateCheckout": {
+        "dataFormats": ["text/plain"]
+      },
+      "valetParking": {
+        "dataFormats": ["text/plain"]
+      },
+      "roomMicrowave": {
+        "dataFormats": ["text/plain"]
+      }
+    },
+    "structure": {
+      "roomTemp": {},
+      "ordersRoomService": {},
+      "numExtraPillows": {},
+      "lateCheckout": {},
+      "valetParking": {},
+      "roomMicrowave": {}
+    }
+  }
+}

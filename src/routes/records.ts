@@ -3,6 +3,8 @@ import {
   PrivateKeySigner,
   RecordsDelete,
   RecordsDeleteOptions,
+  RecordsQuery,
+  RecordsQueryOptions,
   RecordsRead,
   RecordsReadOptions,
   RecordsWrite,
@@ -22,6 +24,8 @@ recordsRoute.post("/create", async (req: any, res: any, next: any) => {
     data,
     keyInfo,
     target,
+    recipient,
+    parentContextId,
     protocolRole
   } = req.body;
   const signer: PrivateKeySigner = new PrivateKeySigner(keyInfo);
@@ -32,7 +36,9 @@ recordsRoute.post("/create", async (req: any, res: any, next: any) => {
     protocolRole: protocolRole,
     dataFormat: dataFormat,
     data: utf8Data,
-    signer: signer
+    signer: signer,
+    recipient: recipient,
+    parentContextId: parentContextId
   };
   const recordsCreateMessage: RecordsWrite = await RecordsWrite.create(
     recordsWriteOptions
@@ -102,6 +108,52 @@ recordsRoute.post("/read", async (req: any, res: any, next: any) => {
   }
 
   res.send(readResponses);
+
+  //   res.status(parsedResponse.status?.code || 200).response(parsedResponse);
+});
+
+recordsRoute.post("/query", async (req: any, res: any, next: any) => {
+  console.log("/records/query endpoint hit");
+  const { protocol, protocolPath, parentId, keyInfo, target } = req.body;
+  const signer: PrivateKeySigner = new PrivateKeySigner(keyInfo);
+
+  console.log(protocolPath);
+  const recordsQueryOptions: RecordsQueryOptions = {
+    filter: {
+      protocol: protocol,
+      protocolPath: protocolPath,
+      parentId: parentId
+    },
+    signer: signer
+  };
+
+  console.log("record query options: ", recordsQueryOptions);
+
+  const recordsQueryMessage: RecordsQuery = await RecordsQuery.create(
+    recordsQueryOptions
+  );
+
+  console.log("message: ", recordsQueryMessage.message);
+
+  const recordsQueryResponse = await sendRpcRequest(
+    recordsQueryMessage,
+    target
+  );
+
+  const response = await recordsQueryResponse.json();
+
+  const records = response.result.reply.entries;
+  console.log("returned records: ", records);
+
+  for (const record of records) {
+    const encodedData = record.encodedData;
+    const bytesData = Encoder.base64UrlToBytes(encodedData);
+    const objData = Encoder.bytesToObject(bytesData);
+    console.log("decoded data: ", objData);
+    record.encodedData = objData;
+  }
+
+  res.send(records);
 
   //   res.status(parsedResponse.status?.code || 200).response(parsedResponse);
 });

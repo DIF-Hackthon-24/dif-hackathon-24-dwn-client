@@ -1,0 +1,26 @@
+{
+  "definition": {
+    "protocol": "https://dif-hackathon-2024/schemas/diningPreferences",
+    "published": true,
+    "types": {
+      "diet": {
+        "dataFormats": ["text/csv"]
+      },
+      "allergies": {
+        "dataFormats": ["text/csv"]
+      },
+      "childFriendlyOptions": {
+        "dataFormats": ["text/plain"]
+      },
+      "cuisines": {
+        "dataFormats": ["text/plain"]
+      }
+    },
+    "structure": {
+      "diet": {},
+      "allergies": {},
+      "childFriendlyOptions": {},
+      "cuisines": {}
+    }
+  }
+}

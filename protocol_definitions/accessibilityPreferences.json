@@ -1,0 +1,21 @@
+{
+  "definition": {
+    "protocol": "https://dif-hackathon-2024/schemas/accessibilityPreferences",
+    "published": true,
+    "types": {
+      "roomTemp": {
+        "dataFormats": ["text/plain"]
+      }
+    },
+    "structure": {
+      "roomTemp": {},
+      "diet": {},
+      "allergies": {},
+      "ordersRoomService": {},
+      "numExtraPillows": {},
+      "lateCheckout": {},
+      "valetParking": {},
+      "roomMicrowave": {}
+    }
+  }
+}

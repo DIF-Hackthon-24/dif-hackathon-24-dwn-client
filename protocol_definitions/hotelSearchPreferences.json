@@ -1,6 +1,6 @@
 {
   "definition": {
-    "protocol": "https://dif-hackathon-2024/schemas/travelerProfile",
+    "protocol": "https://dif-hackathon-2024/schemas/hotelSearchPreferences",
     "published": true,
     "types": {
       "roomType": {
@@ -9,30 +9,18 @@
       "smoking": {
         "dataFormats": ["text/plain"]
       },
-      "roomTemp": {
-        "dataFormats": ["text/plain"]
-      },
       "wheelchairAccessible": {
         "dataFormats": ["text/plain"]
       },
       "breakfastIncluded": {
         "dataFormats": ["text/plain"]
-      },
-      "diet": {
-        "dataFormats": ["text/csv"]
-      },
-      "allergies": {
-        "dataFormats": ["text/csv"]
       }
     },
     "structure": {
       "roomType": {},
       "smoking": {},
-      "roomTemp": {},
       "wheelchairAccessible": {},
-      "breakfastIncluded": {},
-      "diet": {},
-      "allergies": {}
+      "breakfastIncluded": {}
     }
   }
 }
