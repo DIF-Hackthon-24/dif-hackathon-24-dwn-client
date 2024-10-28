@@ -49,7 +49,9 @@ permissionsRoute.post("/request", async (req: any, res: any, next: any) => {
   const response = await requestResponse.json();
 
   if (response.result.reply.status.code === 202) {
-    res.status(200).send(request.recordsWrite.message.recordId);
+    res
+      .status(200)
+      .send({ permissionId: request.recordsWrite.message.recordId });
   } else {
     res
       .status(400)
