@@ -49,9 +49,15 @@ permissionsRoute.post("/request", async (req: any, res: any, next: any) => {
   const response = await requestResponse.json();
 
   if (response.result.reply.status.code === 202) {
-    res
-      .status(200)
-      .send({ permissionId: request.recordsWrite.message.recordId });
+    const toReturn = {
+      scope: {
+        interface: DwnInterfaceName.Records,
+        method: method,
+        protocol: protocol
+      },
+      recipient: keyInfo.keyId.split("#")[0]
+    };
+    res.status(200).send(toReturn);
   } else {
     res
       .status(400)

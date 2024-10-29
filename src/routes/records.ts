@@ -88,6 +88,7 @@ recordsRoute.post("/read", async (req: any, res: any, next: any) => {
     );
 
     const recordData = await recordsReadResponse.text();
+    console.log("Record data", recordData);
 
     let readResponse;
     // if there is a dwn-response header, then we have found a record

@@ -1,0 +1,30 @@
+{
+  "definition": {
+    "protocol": "https://dif-hackathon-2024/schemas/travelerProfile",
+    "published": true,
+    "types": {
+      "roomType": {
+        "dataFormats": ["text/plain"]
+      },
+      "smoking": {
+        "dataFormats": ["text/plain"]
+      },
+      "wheelchairAccessible": {
+        "dataFormats": ["text/plain"]
+      },
+      "breakfastIncluded": {
+        "dataFormats": ["text/plain"]
+      },
+      "spaTreatments": {
+        "dataFormats": ["text/csv"]
+      }
+    },
+    "structure": {
+      "roomType": {},
+      "smoking": {},
+      "wheelchairAccessible": {},
+      "breakfastIncluded": {},
+      "spaTreatments": {}
+    }
+  }
+}
